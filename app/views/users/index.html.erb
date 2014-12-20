@@ -1,0 +1,14 @@
+<h4>在线用户列表</h4>
+<div id="online_users">
+  <% active_users.each do |user| %>
+    <%= render partial: 'profiles/user', object: user %>
+  <% end %>
+</div>
+<hr/>
+<h4 class="all_users_header">所有用户列表</h4>
+<div id="loading">Loading...</div>
+<div id="all_users">
+  <div class="show_link">
+    <%= link_to '加载', '#', id: 'show_all_users' %>
+  </div>
+</div>

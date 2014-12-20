@@ -1,6 +1,6 @@
-source 'https://rubygems.org'
-
-gem 'rails', '4.0.2'
+#source 'https://rubygems.org'
+source 'http://ruby.taobao.org'
+gem 'rails', '4.0.0'
 
 # assets
 gem 'sass-rails',   '~> 4.0.0'
@@ -14,8 +14,11 @@ gem 'jquery-rails'
 gem 'bootstrap-sass', '~> 3.0.3.0'
 gem 'will_paginate-bootstrap'
 
+#富文本编辑器
+gem 'rails_kindeditor'
+
 # Misc
-gem 'bcrypt-ruby'
+gem 'bcrypt-ruby','~> 3.0.0'
 gem 'simple_form'
 gem 'magic_encoding'
 gem 'easy_captcha'
@@ -33,7 +36,7 @@ gem 'omniauth-weibo-oauth2'
 gem 'chinese_cities'
 gem 'acts-as-taggable-on'
 gem 'ransack'
-
+gem 'mysql2'
 group :development do
   gem 'sqlite3'
   gem 'thin'

@@ -1,0 +1,67 @@
+<div id="search_form">
+  <%= search_form_for @q, url: form_url, html: {class: 'form-search'} do |f| %>
+      <div class="input-append">
+        <%= f.text_field :name_cont, class: 'search-query', placeholder: '输入名称' %>
+        <%= f.submit '搜索', class: 'btn' %>
+      </div>
+  <% end %>
+</div>
+<% if @classifications.length > 0 %>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>
+          <%= sort_link(@q, :name) %>
+        </th>
+        <th>
+          <%=t(:level) %>
+          <% sort_link(@q, :level) %>
+        </th>
+        <th>
+          父级名称
+          <% sort_link(@q, :upid,'') %>
+        </th>
+        <th>
+          <%= sort_link(@q, :created_at, '创建时间') %>
+        </th>
+        <th>
+          <%= sort_link(@q, :state, '状态') %>
+        </th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @classifications.each_with_index do |ac, index| %>
+          <tr class="ac" id="ac_<%= ac.id %>">
+            <td>
+              <%= link_to ac.name, admin_indexs_path(ac) %>
+            </td>
+            <td>
+              <%= ac.level != 0 ? ac.level : '最高级' %>
+            </td>
+            <td>
+
+              <%= ac.upid != 0 ? Classification.find(ac.upid).name : '最高级' %>
+            </td>
+            <td>
+              <%= ac.created_at.strftime('%Y-%m-%d') %>
+            </td>
+            <td>
+              <%= content_tag(:span, '有效', class: 'label label-danger') if ac.state %>
+            </td>
+            <td>
+              <%= link_to '编辑', edit_admin_classification_path(ac) %>
+              <%#= link_to '删除', [:admin, user], method: :delete, remote: true, data: { confirm: '确定删除？' } unless user == current_user
+              %>
+              <%= link_to '删除', [:admin, ac],   method: :delete, remote: true, data: { confirm: '确定删除？' } %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <div class="pagination pull-right">
+      <%= will_paginate @classifications, renderer: BootstrapPagination::Rails %>
+    </div>
+<% else %>
+    <div class="no_content">无内容</div>
+<% end %>

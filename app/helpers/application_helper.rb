@@ -2,8 +2,10 @@
 module ApplicationHelper
   def display_flash
     output = ActiveSupport::SafeBuffer.new
+
     flash.each do |key, msg|
-      output << content_tag(:div, (link_to('×', '#', class: 'close', 'data-dismiss' => 'alert', 'aria-hidden' => 'true') + content_tag(:strong, t("flash.#{key}")) + ' : ' + msg), class: "alert alert-#{key} fade in")
+      output << content_tag(:div,
+                            (link_to('×', '#', class: 'close', 'data-dismiss' => 'alert', 'aria-hidden' => 'true') + content_tag(:strong, t("flash.#{key}")) + ' : ' + msg), class: "alert alert-#{key} fade in")
     end
     output.html_safe
   end

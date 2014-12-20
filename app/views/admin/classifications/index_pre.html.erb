@@ -1,0 +1,8 @@
+<%= tab_link_to '新建商品分类', admin_news_path(params[:id]), 'classification', 'new create' %>
+<%= link_to '总分类 ',admin_classifications_path %>
+<% @result.each do |k,v| %>
+
+<%= link_to " >> #{v}" ,admin_indexs_path(k)  %>
+    <% end %>
+
+<%= render partial: 'classifications_list_table', locals: { form_url: action_name == 'index' ? admin_classifications_path : admin_indexs_path(params[:id])} %>

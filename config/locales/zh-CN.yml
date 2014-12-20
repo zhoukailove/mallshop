@@ -1,4 +1,6 @@
 zh-CN:
+  new_admin_classification: 创建商品分类
+  edit_admin_classification: 编辑商品分类
   date:
     formats:
       default: "%Y-%m-%d"
@@ -225,6 +227,7 @@ zh-CN:
       group: 用户组
       message: 消息
       notification: 提醒
+      classification: 商品分类
       tag: 标签
     attributes:
       user:
@@ -257,6 +260,11 @@ zh-CN:
         content: 内容
       tag:
         name: 名称
+      classification:
+        name: 名称
+        upid: 父级ID
+        level: 级别
+        state: 状态
   activemodel:
     models:
       score: 积分
@@ -269,3 +277,6 @@ zh-CN:
     previous_label: 上一页
     next_label: 下一页
     page_gap: ...
+  Listing_admin_classifications: 商品分类列表
+  New_Classification: 创建商品分类
+  level: "级别"

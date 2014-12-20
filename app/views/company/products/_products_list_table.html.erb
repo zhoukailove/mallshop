@@ -1,0 +1,85 @@
+<div id="search_form">
+  <%= search_form_for @q, url: form_url, html: {class: 'form-search'} do |f| %>
+      <div class="input-append">
+        <%= f.text_field :title_cont, class: 'search-query', placeholder: '输入名称' %>
+        <%= f.submit '搜索', class: 'btn' %>
+      </div>
+  <% end %>
+</div>
+<% if @products.length > 0 %>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>
+          <%= sort_link(@q, :title) %>
+        </th>
+        <th>
+          <!--商品编码-->
+          <%= sort_link(@q, :barcode) %>
+        </th>
+        <th>
+          <!--订单数量-->
+          <% sort_link(@q, :orders_count) %>
+        </th>
+        <th>
+          <!--评论数量-->
+          <% sort_link(@q, :comments_count) %>
+        </th>
+        <th>
+          <!--简介-->
+          <% sort_link(@q, :synopsis) %>
+        </th>
+        <th>
+          <%= sort_link(@q, :created_at, '创建时间') %>
+        </th>
+        <th>
+          <%= sort_link(@q, :state, '状态') %>
+        </th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      5203821061627397
+      0517
+      822825
+      <tbody>
+      <% @products.each_with_index do |item, index| %>
+          <tr class="product" id="product<%= item.id %>">
+            <td>
+              <%= link_to item.title, company_product_path(item) %>
+            </td>
+            <td>
+              <%= item.barcode %>
+            </td>
+            <td>
+
+              <%= item.orders_count %>
+            </td><td>
+
+              <%= item.comments_count %>
+            </td>
+            <td>
+
+              <%= item.synopsis %>
+            </td>
+            <td>
+              <%= ac.created_at.strftime('%Y-%m-%d') %>
+            </td>
+            <td>
+              <%= content_tag(:span, '有效', class: 'label label-danger') if item.state %>
+            </td>
+            <td>
+              <%= link_to '编辑', edit_company_product_path(item) %>
+              <%#= link_to '删除', [:admin, user], method: :delete, remote: true, data: { confirm: '确定删除？' } unless user == current_user
+              %>
+              <%= link_to '删除', [:company, item],   method: :delete, remote: true, data: { confirm: '确定删除？' } %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <div class="pagination pull-right">
+      <%= will_paginate @products, renderer: BootstrapPagination::Rails %>
+    </div>
+<% else %>
+    <div class="no_content">无内容</div>
+<% end %>

@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130217164146) do
+ActiveRecord::Schema.define(version: 20141025062311) do
+
+  create_table "classifications", force: true do |t|
+    t.string   "name"
+    t.integer  "level"
+    t.integer  "upid"
+    t.boolean  "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0
@@ -27,7 +36,7 @@ ActiveRecord::Schema.define(version: 20130217164146) do
     t.datetime "updated_at"
   end
 
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "groups", force: true do |t|
     t.string   "name"
@@ -53,9 +62,9 @@ ActiveRecord::Schema.define(version: 20130217164146) do
     t.datetime "updated_at"
   end
 
-  add_index "messages", ["receiver_ids_string", "user_id"], name: "index_messages_on_receiver_ids_string_and_user_id"
-  add_index "messages", ["sender_id", "user_id"], name: "index_messages_on_sender_id_and_user_id"
-  add_index "messages", ["user_id"], name: "index_messages_on_user_id"
+  add_index "messages", ["receiver_ids_string", "user_id"], name: "index_messages_on_receiver_ids_string_and_user_id", using: :btree
+  add_index "messages", ["sender_id", "user_id"], name: "index_messages_on_sender_id_and_user_id", using: :btree
+  add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "notifications", force: true do |t|
     t.text     "content"
@@ -65,15 +74,35 @@ ActiveRecord::Schema.define(version: 20130217164146) do
     t.datetime "updated_at"
   end
 
-  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id"
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
+
+  create_table "product_drawings", force: true do |t|
+    t.integer  "product_id"
+    t.integer  "sort"
+    t.string   "product_drawing"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "products", force: true do |t|
+    t.string   "title"
+    t.integer  "user_id"
+    t.boolean  "state"
+    t.string   "barcode"
+    t.integer  "orders_count"
+    t.integer  "comments_count"
+    t.text     "synopsis"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "relationships", force: true do |t|
     t.integer "watching_id"
     t.integer "watcher_id"
   end
 
-  add_index "relationships", ["watcher_id"], name: "index_relationships_on_watcher_id"
-  add_index "relationships", ["watching_id"], name: "index_relationships_on_watching_id"
+  add_index "relationships", ["watcher_id"], name: "index_relationships_on_watcher_id", using: :btree
+  add_index "relationships", ["watching_id"], name: "index_relationships_on_watching_id", using: :btree
 
   create_table "settings", force: true do |t|
     t.string   "key",         null: false
@@ -84,7 +113,7 @@ ActiveRecord::Schema.define(version: 20130217164146) do
     t.datetime "updated_at"
   end
 
-  add_index "settings", ["target_type", "target_id", "key"], name: "index_settings_on_target_type_and_target_id_and_key", unique: true
+  add_index "settings", ["target_type", "target_id", "key"], name: "index_settings_on_target_type_and_target_id_and_key", unique: true, using: :btree
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
@@ -96,8 +125,8 @@ ActiveRecord::Schema.define(version: 20130217164146) do
     t.datetime "created_at"
   end
 
-  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id"
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
+  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
 
   create_table "tags", force: true do |t|
     t.string "name"
@@ -131,8 +160,8 @@ ActiveRecord::Schema.define(version: 20130217164146) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["auth_token"], name: "index_users_on_auth_token", unique: true
-  add_index "users", ["name", "email"], name: "index_users_on_name_and_email", unique: true
-  add_index "users", ["provider", "uid"], name: "index_users_on_provider_and_uid"
+  add_index "users", ["auth_token"], name: "index_users_on_auth_token", unique: true, using: :btree
+  add_index "users", ["name", "email"], name: "index_users_on_name_and_email", unique: true, using: :btree
+  add_index "users", ["provider", "uid"], name: "index_users_on_provider_and_uid", using: :btree
 
 end

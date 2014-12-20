@@ -52,6 +52,13 @@ Central::Application.routes.draw do
   
   # captcha
   captcha_route
+
+  #company
+  namespace :company do
+    root :to => 'home#index'
+    resource :home, only: [:edit, :update], controller: 'home'
+    resources :products
+  end
   
   # admin
   namespace :admin do
@@ -64,7 +71,11 @@ Central::Application.routes.draw do
         delete 'group_destroy'
       end
     end
-    resources :groups
+    resources :groups,:classifications
+
+    get  'index_pre/:id' => 'classifications#index_pre',as: 'indexs'
+    get  'new_pre/:id' => 'classifications#new_pre',as: 'news'
+
     resources :messages do
       delete 'group_destroy', on: :collection
     end
