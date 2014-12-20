@@ -28,6 +28,7 @@ gem 'will_paginate'
 gem 'real_settings', github: 'Macrow/real_settings'
 gem 'validates_email_format_of'
 
+
 # omniauth
 gem 'omniauth-github'
 gem 'omniauth-qq-connect'
